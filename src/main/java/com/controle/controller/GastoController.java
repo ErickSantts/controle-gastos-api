@@ -36,7 +36,7 @@ public class GastoController {
         return ResponseEntity.ok(gastoAtualizado);
     }
 
-    @PutMapping("/alterarStatus")
+    @PutMapping("alterarStatus")
     public ResponseEntity<Gasto> alterarStatus(@RequestParam Long id) {
         Gasto gastoAtualizado = service.alterarStatus(id);
         return ResponseEntity.ok(gastoAtualizado);
