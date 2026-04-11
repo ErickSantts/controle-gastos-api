@@ -28,5 +28,17 @@ public class GastoService {
        return repository.save(gasto);
     }
 
+    public Gasto alterarStatus(Long id) {
+        Gasto gasto = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Gasto não encontrado"));
+        boolean status = gasto.isPago();
+        gasto.setPago(!status);
+        return repository.save(gasto);
+    }
+
+    public List<Gasto> findByDescricaoContainingIgnoreCase(String descricao){
+        return repository.findByDescricaoContainingIgnoreCase(descricao);
+    }
+
     // Métodos para editar e excluir (delete real) seguem a mesma lógica
 }

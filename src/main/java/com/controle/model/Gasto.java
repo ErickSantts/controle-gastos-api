@@ -18,10 +18,11 @@ public class Gasto {
     private String descricao;
     private BigDecimal valor;
     private LocalDate dataVencimento;
+    private boolean pago = true;
 
     @Enumerated(EnumType.STRING)
     private TipoRecorrencia recorrencia; // UNICO, MENSAL, ANUAL
 
-    private boolean ativo = true; // Para o "inativar" que você pediu
+    private boolean ativo = true;
 
 }
