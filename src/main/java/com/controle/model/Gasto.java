@@ -17,12 +17,14 @@ public class Gasto {
 
     private String descricao;
     private BigDecimal valor;
-    private LocalDate dataVencimento;
+    private LocalDate dataRealizadoGasto;
     private boolean pago = true;
 
     @Enumerated(EnumType.STRING)
     private TipoRecorrencia recorrencia; // UNICO, MENSAL, ANUAL
 
     private boolean ativo = true;
+
+    private Integer qtdParcelas;
 
 }
