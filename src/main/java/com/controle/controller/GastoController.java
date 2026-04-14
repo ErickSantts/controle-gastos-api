@@ -30,8 +30,8 @@ public class GastoController {
         return service.findByDescricaoContainingIgnoreCase(descricao);
     }
 
-    @PutMapping("/{id}/inativarAtivar")
-    public ResponseEntity<Gasto> inativar(@PathVariable Long id) {
+    @PutMapping("/inativarAtivar")
+    public ResponseEntity<Gasto> inativar(@RequestParam Long id) {
         Gasto gastoAtualizado = service.inativarAtivar(id);
         return ResponseEntity.ok(gastoAtualizado);
     }
