@@ -25,9 +25,20 @@ public class GastoController {
         return service.listarTodosAtivos();
     }
 
-    @PutMapping("/{id}/inativarAtivar")
-    public ResponseEntity<Gasto> inativar(@PathVariable Long id) {
+    @GetMapping("/pesquisar")
+    public List<Gasto> pesquisar(@RequestParam String descricao) {
+        return service.findByDescricaoContainingIgnoreCase(descricao);
+    }
+
+    @PutMapping("/inativarAtivar")
+    public ResponseEntity<Gasto> inativar(@RequestParam Long id) {
         Gasto gastoAtualizado = service.inativarAtivar(id);
+        return ResponseEntity.ok(gastoAtualizado);
+    }
+
+    @PutMapping("alterarStatus")
+    public ResponseEntity<Gasto> alterarStatus(@RequestParam Long id) {
+        Gasto gastoAtualizado = service.alterarStatus(id);
         return ResponseEntity.ok(gastoAtualizado);
     }
 

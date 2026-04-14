@@ -10,4 +10,7 @@ import java.util.List;
 public interface GastoRepository extends JpaRepository<Gasto, Long> {
     // Busca apenas os gastos que não foram "excluídos" logicamente
     List<Gasto> findByAtivoTrue();
+
+    List<Gasto> findByDescricaoContainingIgnoreCase(String descricao);
 }
+
