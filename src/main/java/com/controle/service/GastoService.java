@@ -4,7 +4,9 @@ import com.controle.model.Gasto;
 import com.controle.model.TipoRecorrencia;
 import com.controle.repository.GastoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -50,7 +52,22 @@ public class GastoService {
     }
 
     public List<Gasto> findByDescricaoContainingIgnoreCase(String descricao) {
-        return repository.findByDescricaoContainingIgnoreCase(descricao);
+        return repository.buscarGastosAtivosPorDescricao(descricao);
+    }
+
+    public Gasto atualizar(Long id, Gasto gastoAtualizado) {
+        return repository.findById(id)
+                .map(gasto -> {
+                    gasto.setDescricao(gastoAtualizado.getDescricao());
+                    gasto.setValor(gastoAtualizado.getValor());
+                    gasto.setPago(gastoAtualizado.isPago());
+                    gasto.setAtivo(gastoAtualizado.isAtivo());
+                    gasto.setQtdParcelas(gastoAtualizado.getQtdParcelas());
+                    gasto.setRecorrencia(gastoAtualizado.getRecorrencia());
+                    gasto.setDataRealizadoGasto(gastoAtualizado.getDataRealizadoGasto());
+                    return ResponseEntity.ok(repository.save(gasto));
+                })
+                .orElse(ResponseEntity.notFound().build()).getBody();
     }
 
     // Métodos para editar e excluir (delete real) seguem a mesma lógica

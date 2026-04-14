@@ -42,4 +42,12 @@ public class GastoController {
         return ResponseEntity.ok(gastoAtualizado);
     }
 
+    @PutMapping("/atualizar/{id}") // O ID vai na rota
+    public ResponseEntity<Gasto> atualizar(
+            @PathVariable Long id,
+            @RequestBody Gasto gastoAtualizado // O objeto vem do corpo do JSON
+    ) {
+        Gasto gasto = service.atualizar(id, gastoAtualizado);
+        return ResponseEntity.ok(gasto);
+    }
 }
