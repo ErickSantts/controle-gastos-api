@@ -14,8 +14,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "receita")
-public class Receita {
+@Table(name = "receitas")
+public class Receitas {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,7 +24,8 @@ public class Receita {
     private String descricao; // Ex: "Salário - Meu", "Salário - Esposa", "Bônus"
     private BigDecimal valor;
     private LocalDate dataRecebimento;
+    @Enumerated(EnumType.STRING)
     private Categoria categoria; // "SALARIO"
-    private Boolean ativo = true;
+    private Boolean recebido = true;
 
 }
