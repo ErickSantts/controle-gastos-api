@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -18,7 +19,11 @@ public interface GastoRepository extends JpaRepository<Gasto, Long> {
     @Query("SELECT g FROM Gasto g " +
             "WHERE (:desc IS NULL OR LOWER(g.descricao) LIKE LOWER(CONCAT('%', :desc, '%'))) " +
             "AND g.ativo = true " +
+            "AND EXTRACT(YEAR FROM g.dataRealizadoGasto) = :mes " +
+            "AND EXTRACT(MONTH FROM g.dataRealizadoGasto) = :ano " +
             "ORDER BY g.dataRealizadoGasto ASC")
-    List<Gasto> buscarGastosAtivosPorDescricao(@Param("desc") String desc);
+    List<Gasto> buscarGastosAtivosPorDescricao(@Param("desc") String desc,
+                                               @Param("mes") Integer mes,
+                                               @Param("ano") Integer ano);
 }
 

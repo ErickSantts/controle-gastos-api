@@ -51,8 +51,8 @@ public class GastoService {
         return repository.save(gasto);
     }
 
-    public List<Gasto> findByDescricaoContainingIgnoreCase(String descricao) {
-        return repository.buscarGastosAtivosPorDescricao(descricao);
+    public List<Gasto> findByDescricaoContainingIgnoreCase(String descricao, LocalDate data) {
+        return repository.buscarGastosAtivosPorDescricao(descricao, data.getYear(), data.getMonthValue());
     }
 
     public Gasto atualizar(Long id, Gasto gastoAtualizado) {

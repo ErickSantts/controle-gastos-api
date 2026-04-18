@@ -3,9 +3,12 @@ package com.controle.controller;
 import com.controle.model.Gasto;
 import com.controle.service.GastoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @RestController
@@ -26,8 +29,12 @@ public class GastoController {
     }
 
     @GetMapping("/pesquisar")
-    public List<Gasto> pesquisar(@RequestParam String descricao) {
-        return service.findByDescricaoContainingIgnoreCase(descricao);
+    public List<Gasto> pesquisar(@RequestParam String descricao, @RequestParam("data") String dataString) {
+
+        LocalDate data = ZonedDateTime.parse(dataString).toLocalDate();
+        System.out.println(dataString);
+        System.out.println(descricao);
+        return service.findByDescricaoContainingIgnoreCase(descricao, data);
     }
 
     @PutMapping("/inativarAtivar")
