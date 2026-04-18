@@ -12,7 +12,13 @@ import java.util.List;
 @Repository
 public interface GastoRepository extends JpaRepository<Gasto, Long> {
     // Busca apenas os gastos que não foram "excluídos" logicamente
-    List<Gasto> findByAtivoTrue();
+
+            @Query("SELECT g FROM Gasto g " +
+                    "WHERE g.ativo = true " +
+                    "AND EXTRACT(YEAR FROM g.dataRealizadoGasto) = EXTRACT(YEAR FROM CURRENT_DATE)" +
+                    "AND EXTRACT(MONTH FROM g.dataRealizadoGasto) = EXTRACT(MONTH from CURRENT_DATE)" +
+                    "ORDER BY g.dataRealizadoGasto ASC")
+    List<Gasto> findAllByData();
 
     //List<Gasto> findByDescricaoContainingIgnoreCaseAndAtivoTrue(String descricao);
 

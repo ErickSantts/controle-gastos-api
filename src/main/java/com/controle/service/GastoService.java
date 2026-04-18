@@ -34,7 +34,7 @@ public class GastoService {
     }
 
     public List<Gasto> listarTodosAtivos() {
-        return repository.findByAtivoTrue();
+        return repository.findAllByData();
     }
 
     public Gasto inativarAtivar(Long id) {
